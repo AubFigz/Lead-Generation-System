@@ -137,3 +137,81 @@ The project uses a `config.yaml` file for customizable settings, including:
 - **Task Scheduler**: Scripts and their schedules
 
 ---
+Running Tests
+This project includes comprehensive tests to ensure that all components of the Lead Generation System function as expected. Follow these steps to run the tests:
+
+Prerequisites
+Install pytest:
+
+Ensure you have pytest installed for running tests:
+bash
+Copy code
+pip install pytest
+Install Coverage Tool (Optional):
+
+To measure code coverage, install pytest-cov:
+bash
+Copy code
+pip install pytest-cov
+Test Dependencies:
+
+Ensure all project dependencies from requirements.txt are installed:
+bash
+Copy code
+pip install -r requirements.txt
+Set Up the Environment:
+
+If using environment variables, ensure your .env file is properly configured.
+How to Run Tests
+Run All Tests:
+
+To execute all test cases:
+bash
+Copy code
+pytest tests/
+Run Tests Verbosely:
+
+To see detailed output during test execution:
+bash
+Copy code
+pytest tests/ -v
+Run Specific Tests:
+
+To run a specific test file (e.g., test_lead_scoring.py):
+bash
+Copy code
+pytest tests/test_lead_scoring.py
+Run Tests with Coverage:
+
+To generate a code coverage report:
+bash
+Copy code
+pytest --cov=your_project_directory tests/
+Replace your_project_directory with the root folder of your project.
+Generate an HTML Coverage Report:
+
+To create an interactive HTML coverage report:
+bash
+Copy code
+pytest --cov=your_project_directory --cov-report=html tests/
+Open the generated htmlcov/index.html in a browser to view details.
+Interpreting Results
+PASS: Indicates the function or component passed all assertions and works as intended.
+FAIL: Indicates an assertion failed. Check the traceback in the terminal for debugging.
+SKIP: Indicates a test was intentionally skipped (e.g., environment-specific conditions).
+Common Issues and Fixes
+Database Connection Errors:
+
+Ensure your PostgreSQL or SQLite instance is running and properly configured in conftest.py.
+Missing Dependencies:
+
+Run:
+bash
+Copy code
+pip install -r requirements.txt
+Environment Variables:
+
+Ensure sensitive variables (e.g., API keys) are set in a .env file or your system environment.
+Test Data Conflicts:
+
+Some tests rely on isolated environments (e.g., SQLite in-memory). Ensure no external data conflicts exist.
