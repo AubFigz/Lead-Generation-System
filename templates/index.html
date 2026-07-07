@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leads</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/script.js" defer></script>
+</head>
+<body>
+    <header>Leads Management</header>
+    <div class="container">
+        <button onclick="window.location.href='{{ url_for('create_lead') }}'">Add New Lead</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lead in leads %}
+                <tr>
+                    <td>{{ lead.name }}</td>
+                    <td>{{ lead.email }}</td>
+                    <td>{{ lead.phone }}</td>
+                    <td>{{ lead.status }}</td>
+                    <td>
+                        <button onclick="window.location.href='{{ url_for('edit_lead', lead_id=lead.id) }}'">Edit</button>
+                        <button class="delete-lead" data-id="{{ lead.id }}">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

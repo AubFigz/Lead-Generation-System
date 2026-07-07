@@ -1,0 +1,110 @@
+# Environment Configuration
+environment: "development"  # Options: development, staging, production
+
+# Database Configuration
+database:
+  host: "${DATABASE_HOST:-localhost}"
+  database: "${DATABASE_NAME:-lead_data}"
+  user: "${DATABASE_USER}"
+  password: "${DATABASE_PASSWORD}"
+  port: "${DATABASE_PORT:-5432}"
+  connection_pool:
+    min: 1
+    max: 20
+  timeout: 30
+
+# Preprocessing Configuration
+preprocessing:
+  batch_size: 5000
+  schema_validation: true
+  schema_version: "1.0.0"
+  tables:
+    construction_leads: "cleaned_construction_leads"
+    real_estate_leads: "cleaned_real_estate_leads"
+    twitter_leads: "cleaned_twitter_leads"
+
+# Construction Data Collection Configuration
+construction:
+  url: "https://www.dodgeprojects.com/new-construction-florida"
+  table_name: "construction_leads"
+  retry_attempts: 3
+  retry_delay: 2
+  user_agent: "Mozilla/5.0"
+
+# Real Estate Data Collection Configuration
+real_estate:
+  url: "https://www.loopnet.com/search/commercial-real-estate/for-sale/"
+  driver_path: "/path/to/chromedriver"
+  table_name: "real_estate_leads"
+  num_pages: 50
+  timeout: 10
+  cache_path: "./web_cache"
+
+# Twitter / X Data Collection Configuration (X API v2)
+twitter:
+  bearer_token: "${TWITTER_BEARER_TOKEN}"
+  query_keywords:
+    - "security systems"
+    - "surveillance"
+  geolocation: "25.7617,-80.1918,25mi"   # lat,lon,radius (v2 point_radius max 25mi)
+
+# Logging Configuration
+logging:
+  level: "${LOG_LEVEL:-INFO}"
+  file: "application.log"
+  error_file: "application_errors.log"
+  max_file_size: "10MB"
+  backup_count: 5
+
+# Notifications Configuration
+notifications:
+  enabled: true
+  smtp_server: "${SMTP_SERVER}"
+  sender_email: "${SMTP_USER}"
+  port: 465
+  email_auth:
+    password: "${SMTP_PASSWORD}"
+  recipient_emails:
+    - "manager@example.com"
+    - "support@example.com"
+
+# System-Specific Configuration
+system:
+  max_retries: 3
+  retry_backoff: 2
+  timezone: "America/New_York"
+  locale: "en_US.UTF-8"
+
+# Advanced Features
+advanced:
+  enable_sentiment_analysis: true
+  scoring_model_path: "./models/lead_scoring_model.pkl"
+  deduplication_priority:
+    - "real_estate_leads"
+  enable_fuzzy_deduplication: true
+  fuzzy_matching_threshold: 85
+  cloud_storage:
+    enabled: false            # set true once AWS/GCP credentials are configured
+    provider: "aws"
+    bucket_name: "${S3_BUCKET_NAME:-security-systems-leads}"
+    region: "${AWS_REGION:-us-east-1}"
+
+# Monitoring Configuration
+monitoring:
+  enabled: true
+  interval: "${MONITORING_INTERVAL:-60}"
+  log_metrics_to: "metrics.log"
+
+# Dashboard Configuration
+dashboard:
+  enable_filtering: true
+  theme: "light"
+  refresh_rate: 5
+
+# Task Scheduler Configuration
+task_scheduler:
+  tasks:
+    - script: "api_usage_monitoring.py"
+      interval: "hour"
+    - script: "notifications.py"
+      interval: "day"
